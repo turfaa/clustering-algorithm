@@ -1,5 +1,5 @@
 import numpy as np
-from distance import euclidean_dist
+from .distance import euclidean_dist
 
 
 def average_linkage_dist(nodes, cluster_a, cluster_b, distance_function=euclidean_dist):
