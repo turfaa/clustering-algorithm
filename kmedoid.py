@@ -14,7 +14,7 @@ class KMedoidClustering:
         self.n_clusters = n_clusters
 
         if max_iter < 1:
-          raise Exception('max_iter should be 1 or more')
+            raise Exception('max_iter should be 1 or more')
 
         self.max_iter = max_iter
 
@@ -26,10 +26,10 @@ class KMedoidClustering:
 
     def _k_medoid_cluster_cost(self, cluster, medoid):
         cost = 0
-        
+
         for i in range(len(cluster)):
             cost += manhattan_dist(cluster[i], medoid)
-        
+
         return cost
 
     def fit_predict(self, X):
@@ -39,22 +39,27 @@ class KMedoidClustering:
         labels = []
         iteration = 0
         convergense = False
-        
-        labels = list(get_cluster(X[i], medoids, self.n_clusters, distance=manhattan_dist) for i in range(len(X)))
-        cost = next_cost = sum(list(self._k_medoid_cluster_cost(get_cluster_member(X, labels, i), medoids[i]) for i in range(self.n_clusters)))
-        
+
+        labels = list(get_cluster(
+            X[i], medoids, self.n_clusters, distance=manhattan_dist) for i in range(len(X)))
+        cost = next_cost = sum(list(self._k_medoid_cluster_cost(
+            get_cluster_member(X, labels, i), medoids[i]) for i in range(self.n_clusters)))
+
         print('cost awal', cost)
         while not convergense:
             if(next_cost < cost):
                 cost = next_cost
 
-            medoids = list(self._new_medoid(get_cluster_member(X, labels, i)) for i in range(self.n_clusters))
-            labels = list(get_cluster(X[i], medoids, self.n_clusters, distance=manhattan_dist) for i in range(len(X)))
-            next_cost = sum(list(self._k_medoid_cluster_cost(get_cluster_member(X, labels, i), medoids[i]) for i in range(self.n_clusters)))
-            
+            medoids = list(self._new_medoid(get_cluster_member(
+                X, labels, i)) for i in range(self.n_clusters))
+            labels = list(get_cluster(
+                X[i], medoids, self.n_clusters, distance=manhattan_dist) for i in range(len(X)))
+            next_cost = sum(list(self._k_medoid_cluster_cost(get_cluster_member(
+                X, labels, i), medoids[i]) for i in range(self.n_clusters)))
+
             print('current cost', cost)
             print('next cost', next_cost)
             iteration += 1
-            convergense = (next_cost == cost or iteration>=self.max_iter)
-        
+            convergense = (next_cost == cost or iteration >= self.max_iter)
+
         return labels
