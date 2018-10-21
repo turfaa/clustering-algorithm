@@ -45,7 +45,6 @@ class KMedoidClustering:
         cost = next_cost = sum(list(self._k_medoid_cluster_cost(
             get_cluster_member(X, labels, i), medoids[i]) for i in range(self.n_clusters)))
 
-        print('cost awal', cost)
         while not convergense:
             if(next_cost < cost):
                 cost = next_cost
@@ -57,8 +56,6 @@ class KMedoidClustering:
             next_cost = sum(list(self._k_medoid_cluster_cost(get_cluster_member(
                 X, labels, i), medoids[i]) for i in range(self.n_clusters)))
 
-            print('current cost', cost)
-            print('next cost', next_cost)
             iteration += 1
             convergense = (next_cost == cost or iteration >= self.max_iter)
 
