@@ -2,8 +2,6 @@ import numpy as np
 from .distance import euclidean_dist
 
 def get_cluster(x, center, n_cluster, distance=euclidean_dist):
-    if callable(distance):
-        raise NotImplementedError()
     distances = list(distance(center[i],x) for i in range(n_cluster))
     return distances.index(min(distances))
 
