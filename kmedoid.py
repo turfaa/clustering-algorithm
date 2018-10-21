@@ -6,7 +6,7 @@ from commons.data_structure import UnionFindDisjointSet
 from commons.cluster import get_cluster, get_cluster_member
 
 
-class KMeansClustering:
+class KMedoidClustering:
     def __init__(self, n_clusters, max_iter=1000):
         if n_clusters < 1:
             raise Exception('n_cluster should be 1 or more')
@@ -40,7 +40,7 @@ class KMeansClustering:
         iteration = 0
         convergense = False
         
-        labels = list(get_cluster(X[i], medoids, self.n_clusters, distance=manhattan_dist) for i in range(len(x)))
+        labels = list(get_cluster(X[i], medoids, self.n_clusters, distance=manhattan_dist) for i in range(len(X)))
         cost = next_cost = sum(list(self._k_medoid_cluster_cost(get_cluster_member(X, labels, i), medoids[i]) for i in range(self.n_clusters)))
         
         print('cost awal', cost)
