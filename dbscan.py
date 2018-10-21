@@ -34,7 +34,7 @@ class DBSCAN:
                     neighbors[i].append(j)
         
         core = 0
-        label = np.ones(size) * DBSCAN.CALL_POINT
+        label = np.ones(len(data)) * DBSCAN.CALL_POINT
         for i, point in enumerate(data):
             if label[i] != DBSCAN.CALL_POINT:
                 continue
