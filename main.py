@@ -22,11 +22,11 @@ Y_iris = iris.target
 
 # ## Purity
 
-# In[3]:
+# In[12]:
 
 
 def get_purity(cluster, target):
-    cnt = [[0 for _ in range(2)] for _ in range(1000000)]
+    cnt = [[0 for _ in range(2)] for _ in range(10000000)]
     for i in range(len(cluster)):
         if cluster[i] >= 0:
             cnt[cluster[i]][target[i]] += 1
@@ -38,7 +38,7 @@ def get_purity(cluster, target):
 
 # ## DBSCAN
 
-# In[6]:
+# In[13]:
 
 
 class DBSCAN:
@@ -68,7 +68,7 @@ class DBSCAN:
                     neighbors[i].append(j)
         
         core = 0
-        label = np.ones(len(data)) * DBSCAN.CALL_POINT
+        label = np.ones(len(data), dtype=np.int32) * DBSCAN.CALL_POINT
         for i, point in enumerate(data):
             if label[i] != DBSCAN.CALL_POINT:
                 continue
@@ -94,7 +94,7 @@ class DBSCAN:
         return label
 
 
-# In[9]:
+# In[14]:
 
 
 dbscan = DBSCAN()
@@ -102,4 +102,10 @@ pred = dbscan.fit_predict(X_iris)
 purity = get_purity(pred, Y_iris)
 
 print('Purity: ' + str(purity))
+
+
+# In[ ]:
+
+
+
 
